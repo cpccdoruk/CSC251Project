@@ -2,7 +2,7 @@ public class Policy {
 
 public static void main(String[] args) {}
 
-    // Object fields
+    // Object Fields
     private int policyNumber;
     private String providerName;
     private String firstName;
