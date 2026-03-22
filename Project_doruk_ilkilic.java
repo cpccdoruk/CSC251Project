@@ -1,54 +1,112 @@
+//
 
+import java.util.*;
+import java.io.*;
 
-import java.util.Scanner;
+public class Project_doruk_ilkilic
+{ // open class
 
-public class  Project_doruk_ilkilic {
+   public static void main(String[] args)
+   { // open main
 
-    public static void main(String[] args) {
+      try
+      {
+         // Create file object
+         File file = new File("PolicyInformation.txt");
 
-        Scanner keyboard = new Scanner(System.in);
+         // Create Scanner for file
+         Scanner inputFile = new Scanner(file);
 
-        System.out.print("Please enter the Policy Number: ");
-        int policyNumber = keyboard.nextInt();
-        keyboard.nextLine();
+         // Declare variables
+         int policyNumber = 0, age = 0;
+         String providerName = "", firstName = "", lastName = "", smokingStatus = "", fileInput = "";
+         double height = 0.0, weight = 0.0;
 
-        System.out.print("\nPlease enter the Provider Name: ");
-        String providerName = keyboard.nextLine();
+         int smokerCount = 0, nonSmokerCount = 0;
 
-        System.out.print("\nPlease enter the Policyholder’s First Name: ");
-        String firstName = keyboard.nextLine();
+         // Create ArrayList to store Policy objects
+         ArrayList<Policy> policies = new ArrayList<Policy>();
 
-        System.out.print("\nPlease enter the Policyholder’s Last Name: ");
-        String lastName = keyboard.nextLine();
+         // Read file
+         while(inputFile.hasNext())
+         { // open loop
 
-        System.out.print("\nPlease enter the Policyholder’s Age: ");
-        int age = keyboard.nextInt();
-        keyboard.nextLine();
+            // Read data 
+            fileInput = inputFile.nextLine();
+            policyNumber = Integer.parseInt(fileInput);
 
-        System.out.print("\nPlease enter the Policyholder’s Smoking Status (smoker/non-smoker): ");
-        String smokingStatus = keyboard.nextLine();
+            providerName = inputFile.nextLine();
+            firstName = inputFile.nextLine();
+            lastName = inputFile.nextLine();
 
-        System.out.print("\nPlease enter the Policyholder’s Height (in inches): ");
-        double height = keyboard.nextDouble();
+            fileInput = inputFile.nextLine();
+            age = Integer.parseInt(fileInput);
 
-        System.out.print("\nPlease enter the Policyholder’s Weight (in pounds): ");
-        double weight = keyboard.nextDouble();
+            smokingStatus = inputFile.nextLine();
 
-        Policy policy = new Policy(policyNumber, providerName, firstName,
-                                   lastName, age, smokingStatus,
-                                   height, weight);
+            fileInput = inputFile.nextLine();
+            height = Double.parseDouble(fileInput);
 
-        System.out.println("\nPolicy Number: " + policy.getPolicyNumber());
-        System.out.println("\nProvider Name: " + policy.getProviderName());
-        System.out.println("\nPolicyholder’s First Name: " + policy.getFirstName());
-        System.out.println("\nPolicyholder’s Last Name: " + policy.getLastName());
-        System.out.println("\nPolicyholder’s Age: " + policy.getAge());
-        System.out.println("\nPolicyholder’s Smoking Status: " + policy.getSmokingStatus());
-        System.out.println("\nPolicyholder’s Height: " + policy.getHeight() + " inches");
-        System.out.println("\nPolicyholder’s Weight: " + policy.getWeight() + " pounds");
-        System.out.printf("\nPolicyholder’s BMI: %.2f\n", policy.calculateBMI());
-        System.out.printf("\nPolicy Price: $%.2f\n", policy.calculatePolicyPrice());
+            fileInput = inputFile.nextLine();
+            weight = Double.parseDouble(fileInput);
 
-        keyboard.close();
-    }
-}
+            // Skip blank line if not end of file
+            if(inputFile.hasNext())
+            {
+               inputFile.nextLine();
+            }
+
+            // Create Policy object
+            Policy p = new Policy(policyNumber, providerName, firstName,
+                                  lastName, age, smokingStatus,
+                                  height, weight);
+
+            // Add to ArrayList
+            policies.add(p);
+
+         } // close loop
+
+         inputFile.close();
+
+         // Display data using indexed loop 
+         for(int i = 0; i < policies.size(); i++)
+         {
+            System.out.println("\nPolicy Number: " + policies.get(i).getPolicyNumber());
+            System.out.println("\nProvider Name: " + policies.get(i).getProviderName());
+            System.out.println("\nPolicyholder’s First Name: " + policies.get(i).getFirstName());
+            System.out.println("\nPolicyholder’s Last Name: " + policies.get(i).getLastName());
+            System.out.println("\nPolicyholder’s Age: " + policies.get(i).getAge());
+            System.out.println("\nPolicyholder’s Smoking Status (smoker/non-smoker): "
+                                + policies.get(i).getSmokingStatus());
+            System.out.println("\nPolicyholder’s Height: " + policies.get(i).getHeight() + " inches");
+            System.out.println("\nPolicyholder’s Weight: " + policies.get(i).getWeight() + " pounds");
+
+            System.out.printf("\nPolicyholder’s BMI: %.2f\n",
+                              policies.get(i).calculateBMI());
+
+            System.out.printf("\nPolicy Price: $%.2f\n",
+                              policies.get(i).calculatePolicyPrice());
+
+            System.out.println();
+
+            // Count smokers
+            if(policies.get(i).getSmokingStatus().equalsIgnoreCase("smoker"))
+               smokerCount++;
+            else
+               nonSmokerCount++;
+         }
+
+         // Final output
+         System.out.println("The number of policies with a smoker is: " + smokerCount);
+         System.out.println("The number of policies with a non-smoker is: " + nonSmokerCount);
+
+      } // close try
+
+      catch(IOException ex)
+      {
+         System.out.println("Something went wrong reading the file: " + ex.getMessage());
+      }
+
+   } // close main
+
+} // close class

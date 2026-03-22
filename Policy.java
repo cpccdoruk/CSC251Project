@@ -1,6 +1,11 @@
+/**
+ * The Policy class stores information about an insurance policy
+ * and provides methods to calculate BMI and policy price.
+ */
+ 
 public class Policy {
 
-public static void main(String[] args) {}
+    public static void main(String[] args) {}
 
     // Object Fields
     private int policyNumber;
@@ -12,7 +17,9 @@ public static void main(String[] args) {}
     private double height;
     private double weight;
 
-    // class no-arg constructor
+    /**
+     * No-arg constructor initializes fields to default values.
+     */
     public Policy() {
         policyNumber = 0;
         providerName = "";
@@ -24,7 +31,17 @@ public static void main(String[] args) {}
         weight = 0.0;
     }
 
-    // constructor with arguments
+    /**
+     * Constructor that initializes all fields.
+     * @param pNumber policy number
+     * @param pProviderName provider name
+     * @param pFirstName first name
+     * @param pLastName last name
+     * @param pAge age
+     * @param pSmokingStatus smoking status
+     * @param pHeight height in inches
+     * @param pWeight weight in pounds
+     */
     public Policy(int pNumber, String pProviderName, String pFirstName,
                   String pLastName, int pAge, String pSmokingStatus,
                   double pHeight, double pWeight) {
@@ -39,94 +56,79 @@ public static void main(String[] args) {}
         weight = pWeight;
     }
 
-    // Getters accessers
-    public int getPolicyNumber() {
-        return policyNumber;
-    }
+    /** @return policy number */
+    public int getPolicyNumber() { return policyNumber; }
 
-    public String getProviderName() {
-        return providerName;
-    }
+    /** @return provider name */
+    public String getProviderName() { return providerName; }
 
-    public String getFirstName() {
-        return firstName;
-    }
+    /** @return first name */
+    public String getFirstName() { return firstName; }
 
-    public String getLastName() {
-        return lastName;
-    }
+    /** @return last name */
+    public String getLastName() { return lastName; }
 
-    public int getAge() {
-        return age;
-    }
+    /** @return age */
+    public int getAge() { return age; }
 
-    public String getSmokingStatus() {
-        return smokingStatus;
-    }
+    /** @return smoking status */
+    public String getSmokingStatus() { return smokingStatus; }
 
-    public double getHeight() {
-        return height;
-    }
+    /** @return height */
+    public double getHeight() { return height; }
 
-    public double getWeight() {
-        return weight;
-    }
+    /** @return weight */
+    public double getWeight() { return weight; }
 
-    // Setters mutators
-    public void setPolicyNumber(int pNumber) {
-        policyNumber = pNumber;
-    }
+    /** @param pNumber policy number */
+    public void setPolicyNumber(int pNumber) { policyNumber = pNumber; }
 
-    public void setProviderName(String pProviderName) {
-        providerName = pProviderName;
-    }
+    /** @param pProviderName provider name */
+    public void setProviderName(String pProviderName) { providerName = pProviderName; }
 
-    public void setFirstName(String pFirstName) {
-        firstName = pFirstName;
-    }
+    /** @param pFirstName first name */
+    public void setFirstName(String pFirstName) { firstName = pFirstName; }
 
-    public void setLastName(String pLastName) {
-        lastName = pLastName;
-    }
+    /** @param pLastName last name */
+    public void setLastName(String pLastName) { lastName = pLastName; }
 
-    public void setAge(int pAge) {
-        age = pAge;
-    }
+    /** @param pAge age */
+    public void setAge(int pAge) { age = pAge; }
 
-    public void setSmokingStatus(String pSmokingStatus) {
-        smokingStatus = pSmokingStatus;
-    }
+    /** @param pSmokingStatus smoking status */
+    public void setSmokingStatus(String pSmokingStatus) { smokingStatus = pSmokingStatus; }
 
-    public void setHeight(double pHeight) {
-        height = pHeight;
-    }
+    /** @param pHeight height */
+    public void setHeight(double pHeight) { height = pHeight; }
 
-    public void setWeight(double pWeight) {
-        weight = pWeight;
-    }
+    /** @param pWeight weight */
+    public void setWeight(double pWeight) { weight = pWeight; }
 
-    //  BMI calculator method
+    /**
+     * Calculates BMI.
+     * @return BMI value
+     */
     public double calculateBMI() {
         return (weight * 703) / (height * height);
     }
 
-    //  Policy Price calculator
+    /**
+     * Calculates policy price.
+     * @return policy price
+     */
     public double calculatePolicyPrice() {
         double price = 600;
 
-        if (age > 50) {
+        if (age > 50)
             price += 75;
-        }
 
-        if (smokingStatus.equalsIgnoreCase("smoker")) {
+        if (smokingStatus.equalsIgnoreCase("smoker"))
             price += 100;
-        }
 
         double bmi = calculateBMI();
 
-        if (bmi > 35) {
+        if (bmi > 35)
             price += (bmi - 35) * 20;
-        }
 
         return price;
     }
